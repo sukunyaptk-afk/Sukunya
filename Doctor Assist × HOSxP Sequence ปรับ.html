@@ -1,0 +1,350 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Doctor Assist × HOSxP Sequence</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one column; summary of HOSxP touchpoints, then a tabbed sequence diagram per role */
+:root{
+  --bg:#f4f6f5; --surface:#fbfcfb; --ink:#33424e; --muted:#6f7d87; --line:#dbe2e4;
+  --da:#3f7d96; --da-soft:#e6f0f2; --hx:#b8657c; --hx-soft:#f6eaed; --ext:#7c8992; --ext-soft:#eef1f1;
+  --sec:#edf2f1; --actor:#55707f; color-scheme:light;
+  --f-body:"IBM Plex Sans Thai", "Noto Sans Thai", Tahoma, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 56px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1{font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance;font-weight:700}
+h1 .x{color:var(--hx)}
+h2{font-size:19px;margin:0;font-weight:600}
+.lede{color:var(--muted);max-width:68ch;margin:6px 0 0}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:13.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend svg{flex:none}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;min-width:0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:720px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;font-family:var(--f-mono)}
+td.dir{font-family:var(--f-mono);font-size:12.5px;white-space:nowrap}
+.pill{display:inline-block;font-size:12px;padding:1px 9px;border-radius:99px;white-space:nowrap}
+.pill.h{background:var(--hx-soft);color:var(--hx)}
+.pill.p{border:1px dashed var(--hx);color:var(--hx)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line)}
+.tabs button{font:inherit;font-weight:600;color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px;cursor:pointer;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--da);border-bottom-color:var(--da)}
+.tabs button:focus-visible{outline:2px solid var(--da);outline-offset:2px;border-radius:4px}
+.tabs small{font-weight:400;font-size:12px;margin-left:4px}
+.diag{overflow-x:auto;padding-top:14px}
+.diag svg{display:block}
+.caption{color:var(--muted);font-size:13.5px;margin:4px 0 0}
+/* SVG */
+.lifeline{stroke:var(--line);stroke-dasharray:4 5}
+.head rect{stroke-width:1.4}
+.head.actor rect{fill:var(--actor);stroke:var(--actor)} .head.actor text{fill:var(--surface)}
+.head.sys rect{fill:var(--da-soft);stroke:var(--da)} .head.sys text{fill:var(--da)}
+.head.hx rect{fill:var(--hx-soft);stroke:var(--hx)} .head.hx text{fill:var(--hx)}
+.head.ext rect{fill:var(--ext-soft);stroke:var(--ext)} .head.ext text{fill:var(--ext)}
+.head text{font-family:var(--f-body);font-size:13px;font-weight:600;text-anchor:middle}
+.sec rect{fill:var(--sec)} .sec text{fill:var(--ink);font-size:13px;font-weight:600;font-family:var(--f-body)}
+.msg line,.msg path{stroke:var(--muted);stroke-width:1.4;fill:none}
+.msg text{fill:var(--ink);font-size:12.5px;font-family:var(--f-body)}
+.msg.r line,.msg.r path{stroke-dasharray:6 4}
+.msg.h line,.msg.h path,.msg.p line,.msg.p path{stroke:var(--hx);stroke-width:1.9}
+.msg.p line,.msg.p path{stroke-dasharray:2 4;stroke-width:2}
+.msg.h text,.msg.p text{fill:var(--hx);font-weight:600}
+.ah{fill:var(--muted)} .ah-h{fill:var(--hx)}
+.frag rect.box{fill:none;stroke:var(--da);stroke-width:1.2;stroke-dasharray:3 3}
+.frag rect.tag{fill:var(--da)} .frag text.tag{fill:var(--surface);font-family:var(--f-mono);font-size:11px}
+.frag text.lbl{fill:var(--da);font-size:12.5px;font-weight:600;font-family:var(--f-body)}
+.note rect{fill:var(--surface);stroke:var(--muted);stroke-width:1}
+.note text{fill:var(--muted);font-size:12.5px;font-family:var(--f-body);text-anchor:middle}
+.foot{font-size:13px;color:var(--muted);max-width:80ch}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Doctor Assist <span class="x">×</span> HOSxP</h1>
+    <p class="lede">Sequence flow ของแต่ละบทบาท แสดงว่าข้อมูลวิ่งระหว่างผู้ใช้ ระบบ Doctor Assist และ HOSxP ที่จุดใดบ้าง เรียงตามขั้นตอนในภาพ user journey</p>
+  </header>
+
+  <div class="legend" aria-label="คำอธิบายสัญลักษณ์">
+    <span><svg width="46" height="10"><line x1="0" y1="5" x2="38" y2="5" stroke="currentColor" stroke-width="1.5"/><path d="M38 1 L46 5 L38 9z" fill="currentColor"/></svg>เรียกใช้งาน / ส่งข้อมูล</span>
+    <span><svg width="46" height="10"><line x1="0" y1="5" x2="38" y2="5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 4"/><path d="M38 1 L46 5 L38 9z" fill="currentColor"/></svg>ตอบกลับ</span>
+    <span style="color:var(--hx)"><svg width="46" height="10"><line x1="0" y1="5" x2="38" y2="5" stroke="currentColor" stroke-width="2.2"/><path d="M38 1 L46 5 L38 9z" fill="currentColor"/></svg>เชื่อม HOSxP</span>
+  </div>
+
+  <section class="panel">
+    <h2>จุดเชื่อมข้อมูลกับ HOSxP</h2>
+    <div class="tablewrap" style="margin-top:10px">
+      <table>
+        <thead><tr><th>บทบาท</th><th>ขั้นตอน</th><th>ทิศทาง</th><th>ข้อมูล</th><th>สถานะ</th></tr></thead>
+        <tbody>
+          <tr><td>แพทย์</td><td>ดึงประวัติการรักษา</td><td class="dir">HOSxP → DA</td><td>Visit เดิม, การวินิจฉัย, ยาเดิม, ประวัติแพ้ยา, ผล Lab ดึงอัตโนมัติเมื่อแพทย์เข้า Telemed (ค้นด้วย HN ที่พยาบาลกรอกตอนจัดคิว)</td><td><span class="pill h">ตามภาพ</span></td></tr>
+          <tr><td>แพทย์</td><td>ส่งข้อมูลการรักษากลับ</td><td class="dir">DA → HOSxP</td><td>Diagnosis (ICD-10), รายการยา, ใบรับรองแพทย์ → ได้ VN กลับ</td><td><span class="pill h">ตามภาพ</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <p class="caption" id="cap"></p>
+    <div class="diag" id="diag"></div>
+  </section>
+</div>
+
+<script>
+const ROLES = {
+  patient:{tab:"ผู้ป่วย", cap:"ผู้ป่วยทำนัดและรับบริการผ่าน Doctor Assist Web ส่วนการแจ้งเตือนส่งผ่านหมอพร้อม (App / LINE)",
+    parts:[["ผู้ป่วย","actor"],["Doctor Assist\nWeb","sys"],["Health ID","ext"],["FDH API","ext"],["Doctor Assist\nAPI","sys"],["HOSxP","hx"],["หมอพร้อม\nApp / LINE","ext"],["Payment\nGateway","ext"],["Rider","ext"]],
+    steps:[
+      {sec:"1 · เข้าสู่ระบบและยินยอมการเข้าถึงข้อมูล"},
+      {m:[0,1,"Login ด้วย Health ID"]},
+      {m:[1,2,"ยืนยันตัวตน"]},
+      {m:[2,1,"ข้อมูลผู้ป่วย","r"]},
+      {opt:"เข้าสู่ระบบครั้งแรกเท่านั้น"},
+      {m:[1,0,"แสดงหน้ายินยอมการเข้าถึงข้อมูล"]},
+      {m:[0,1,"กดยินยอมที่หน้าระบบ"]},
+      {m:[1,4,"บันทึก consent"]},
+      {end:1},
+      {sec:"2.1 · นัดหมาย: เลือกประเภทบริการ"},
+      {m:[0,1,"เลือก “ตรวจใหม่”"]},
+      {sec:"2.2 · นัดหมาย: เลือกสิทธิการรักษา"},
+      {m:[1,4,"ขอสิทธิการรักษา"]},
+      {m:[4,3,"ตรวจสอบสิทธิ (เลขบัตรประชาชน)"]},
+      {m:[3,4,"สิทธิ + รพ.ที่มีสิทธิ","r"]},
+      {m:[4,1,"รายการสิทธิที่มี","r"]},
+      {m:[0,1,"เลือกสิทธิ เช่น ประกันสังคม"]},
+      {sec:"2.3 · นัดหมาย: ระบุอาการ / คลินิก"},
+      {m:[0,1,"น้ำหนัก ส่วนสูง, Vital signs,\nอาการ, รายละเอียดอาการ"]},
+      {m:[1,1,"คำนวณ BMI"]},
+      {m:[0,1,"เลือกแผนก / คลินิก,\nต้องการใบรับรองแพทย์หรือไม่"]},
+      {sec:"2.4 · นัดหมาย: เลือกวันและเวลา"},
+      {m:[0,1,"เลือกโรงพยาบาล"]},
+      {m:[1,4,"ขอแพทย์ที่ลงเวร + slot ว่าง"]},
+      {m:[4,1,"แพทย์ + slot ทุก 10 นาที","r"]},
+      {m:[0,1,"เลือกแพทย์ วันที่ ช่วงเวลา เวลา"]},
+      {opt:"ไม่มีแพทย์ลงเวร หรือไม่ระบุแพทย์"},
+      {m:[0,1,"เลือก “ไม่ระบุแพทย์”"]},
+      {note:"พยาบาลเลือกแพทย์ให้ตอนคัดกรองคิว",over:[1,4]},
+      {end:1},
+      {sec:"2.5 · นัดหมาย: ยืนยันการนัด"},
+      {m:[1,0,"สรุปการนัดหมาย"]},
+      {m:[0,1,"ยืนยันการนัดหมาย"]},
+      {m:[1,4,"สร้างนัด (รอพยาบาลคัดกรอง)\nพร้อมสิทธิ อาการ Vital signs"]},
+      {m:[4,1,"บันทึกนัดแล้ว\nสถานะ: รอพยาบาลยืนยัน","r"]},
+      {sec:"3 · ได้รับการแจ้งเตือนนัดหมาย (หลังพยาบาลยืนยันนัด)"},
+      {note:"พยาบาลจัดคิว (กรอก HN ถ้ามาครั้งแรก)\nและกดบันทึกจัดคิว",over:[4,5]},
+      {m:[4,6,"แจ้งเตือนนัดหมาย\n(วัน เวลา แพทย์)"]},
+      {m:[6,0,"Push / LINE"]},
+      {sec:"4 · เข้าร่วม Telemed และรับการตรวจวินิจฉัย"},
+      {m:[0,1,"เข้าห้อง Telemed"]},
+      {m:[1,4,"เชื่อมต่อ Video call"]},
+      {note:"แพทย์ตรวจวินิจฉัย\nผลการรักษาถูกส่งเข้า HOSxP",over:[4,5]},
+      {sec:"5 · ได้รับการแจ้งเตือนชำระเงิน"},
+      {m:[4,6,"แจ้งยอดชำระ"]},
+      {m:[6,0,"Push / LINE"]},
+      {sec:"6 · ชำระเงินและได้รับเอกสารออนไลน์"},
+      {m:[0,1,"เมนูชำระเงิน → ชำระ"]},
+      {m:[1,7,"ส่งรายการชำระ"]},
+      {m:[7,4,"ผลการชำระ (callback)","r"]},
+      {m:[4,1,"ใบเสร็จ + ใบรับรองแพทย์\n(เมนูเอกสารออนไลน์)","r"]},
+      {sec:"7 · ได้รับยา"},
+      {m:[8,0,"ส่งยาถึงผู้ป่วย"]},
+      {m:[8,4,"ปิดงานจัดส่ง","r"]}
+    ]},
+  nurse:{tab:"พยาบาล", cap:"หน้าที่ของพยาบาลมีแค่คัดกรองคิวนัดหมาย ไม่มีการเชื่อมข้อมูลกับ HOSxP",
+    parts:[["พยาบาล","actor"],["Provider ID","ext"],["Doctor Assist\nWeb","sys"],["Doctor Assist\nAPI","sys"],["หมอพร้อม\nApp / LINE","ext"]],
+    steps:[
+      {sec:"1 · เข้าสู่ระบบ"},
+      {m:[0,2,"Login ด้วย Provider ID"]},
+      {m:[2,1,"ยืนยันตัวตนผู้ให้บริการ"]},
+      {m:[1,2,"Token + ข้อมูลบุคลากร","r"]},
+      {sec:"2 · คัดกรองคิวและยืนยันนัดหมาย (เมนูจัดการคิว)"},
+      {m:[0,2,"เปิดเมนูจัดการคิว + เลือกวันที่"]},
+      {m:[2,3,"ขอรายการนัดหมาย"]},
+      {m:[3,2,"คิวผู้ป่วย + ข้อมูลที่คนไข้กรอกมา\n(อาการ สิทธิ Vital signs)","r"]},
+      {m:[0,2,"กด “จัดการคิว” ของคนไข้"]},
+      {opt:"คนไข้เข้ารับบริการครั้งแรก (ยังไม่มี HN)"},
+      {m:[0,2,"กรอก HN"]},
+      {m:[2,3,"ส่ง HN"]},
+      {m:[3,3,"ผูก HN กับผู้ป่วย\nครั้งถัดไปไม่ต้องกรอก"]},
+      {end:1},
+      {m:[0,2,"ตรวจ/แก้ไขอาการ (CC),\nรายละเอียดอาการ, สถานพยาบาล"]},
+      {m:[0,2,"เลือกแผนก / คลินิก และแพทย์\n(เลือกให้ ถ้าคนไข้ไม่ระบุแพทย์)"]},
+      {m:[0,2,"กด “บันทึกจัดคิว”"]},
+      {m:[2,3,"บันทึกคิว\nสถานะนัด = ยืนยัน"]},
+      {m:[3,4,"แจ้งเตือนนัดหมายผู้ป่วย\n(ส่งเมื่อยืนยันนัดเท่านั้น)"]},
+    ]},
+  doctor:{tab:"แพทย์", cap:"ดึงประวัติจาก HOSxP ก่อนตรวจ และส่งผลการรักษากลับ HOSxP หลังตรวจ",
+    parts:[["แพทย์","actor"],["Provider ID","ext"],["Doctor Assist\nWeb","sys"],["Doctor Assist\nAPI","sys"],["HOSxP","hx"],["ผู้ป่วย\n(หมอพร้อม)","ext"]],
+    steps:[
+      {sec:"1 · เข้าสู่ระบบ"},
+      {m:[0,2,"Login ด้วย Provider ID"]},
+      {m:[2,1,"ยืนยันตัวตนผู้ให้บริการ"]},
+      {m:[1,2,"Token + ข้อมูลแพทย์","r"]},
+      {sec:"2 · ลงเวลาเวร"},
+      {m:[0,2,"ลงเวลาเวร"]},
+      {m:[2,3,"บันทึกตารางเวร"]},
+      {m:[3,3,"เปิด slot นัดหมาย"]},
+      {sec:"3 · แพทย์ดูรายการนัดหมาย"},
+      {m:[0,2,"เปิดรายการนัดหมาย"]},
+      {m:[2,3,"ขอรายการนัด"]},
+      {m:[3,2,"นัดที่ยืนยันแล้ว\n+ ข้อมูลคัดกรอง","r"]},
+      {sec:"4 · ได้รับแจ้งเตือนและเข้าร่วม Telemed"},
+      {m:[3,2,"แจ้งเตือนถึงเวลานัด"]},
+      {m:[0,2,"เข้าห้อง Telemed"]},
+      {m:[2,5,"เชื่อมต่อ Video call"]},
+      {sec:"5 · ระบบดึงประวัติการรักษาจาก HOSxP"},
+      {m:[3,4,"ขอประวัติการรักษา (HN)\nทันทีที่เข้า Telemed","h"]},
+      {m:[4,3,"Visit, Dx, ยาเดิม,\nแพ้ยา, Lab","rh"]},
+      {m:[3,2,"แสดงประวัติ","r"]},
+      {sec:"6 · บันทึกการวินิจฉัย สั่งยา ออกใบรับรองแพทย์"},
+      {m:[0,2,"บันทึก Dx, สั่งยา,\nออกใบรับรองแพทย์"]},
+      {m:[2,3,"บันทึกผลการตรวจ"]},
+      {sec:"7 · ส่งข้อมูลการรักษากลับไปยัง HOSxP"},
+      {m:[3,4,"ส่ง Visit: Dx (ICD-10),\nรายการยา, ใบรับรอง","h"]},
+      {m:[4,3,"รับข้อมูลแล้ว (VN)","rh"]},
+      {m:[3,2,"ส่งสำเร็จ","r"]},
+      {note:"ใบสั่งยาไปที่เภสัช\nยอดชำระแจ้งผู้ป่วย",over:[3,5]}
+    ]},
+  pharm:{tab:"เภสัช", cap:"รับใบสั่งยาที่แพทย์บันทึก ตรวจสอบ จัดยา และส่งต่อ Rider ขั้นตอนของเภสัชไม่มีการเชื่อมข้อมูลกับ HOSxP",
+    parts:[["เภสัช","actor"],["Provider ID","ext"],["Doctor Assist\nWeb","sys"],["Doctor Assist\nAPI","sys"],["Rider","ext"],["หมอพร้อม\nApp / LINE","ext"]],
+    steps:[
+      {sec:"1 · เข้าสู่ระบบ"},
+      {m:[0,2,"Login ด้วย Provider ID"]},
+      {m:[2,1,"ยืนยันตัวตนผู้ให้บริการ"]},
+      {m:[1,2,"Token + ข้อมูลเภสัช","r"]},
+      {sec:"2 · ตั้งค่ายา"},
+      {m:[0,2,"ตั้งค่ารายการยา"]},
+      {m:[2,3,"บันทึกการตั้งค่า"]},
+      {sec:"3 · ตรวจสอบข้อมูลใบสั่งยา"},
+      {m:[3,2,"ใบสั่งยาใหม่จากแพทย์"]},
+      {m:[0,2,"ตรวจสอบ + ยืนยันการสั่งยา"]},
+      {m:[2,3,"ยืนยันใบสั่งยา"]},
+      {sec:"4 · จัดยาและเรียก Rider"},
+      {m:[0,2,"จัดยาเสร็จ เรียก Rider"]},
+      {m:[2,3,"สร้างงานจัดส่ง"]},
+      {m:[3,4,"เรียก Rider"]},
+      {m:[4,3,"สถานะการจัดส่ง","r"]},
+      {m:[3,2,"แสดงสถานะจัดส่งยา","r"]},
+      {m:[3,5,"แจ้งผู้ป่วยว่ายากำลังจัดส่ง"]}
+    ]},
+  admin:{tab:"Admin", cap:"Admin ต้องขอสิทธิก่อน โดย Super Admin เป็นผู้อนุมัติ จากนั้นดูแลสิทธิผู้ใช้งานและข้อมูลกลางของระบบ ไม่มีการเชื่อมข้อมูลกับ HOSxP",
+    parts:[["Admin","actor"],["Provider ID","ext"],["Doctor Assist\nWeb","sys"],["Doctor Assist\nAPI","sys"],["ผู้ขอสิทธิ\n(บุคลากร)","ext"],["Super Admin","actor"]],
+    steps:[
+      {sec:"1 · ขอสิทธิเข้าใช้งานเป็น Admin (Super Admin อนุมัติ)"},
+      {opt:"ยังไม่มีสิทธิ Admin (ขอครั้งแรก)"},
+      {m:[0,2,"ส่งคำขอสิทธิ Admin\n(ชื่อ Provider ID สถานพยาบาล)"]},
+      {m:[2,3,"บันทึกคำขอ (รออนุมัติ)"]},
+      {m:[3,5,"แจ้งมีคำขอสิทธิ Admin ใหม่"]},
+      {m:[5,3,"อนุมัติ / ไม่อนุมัติ\n(ระบุเหตุผลถ้าไม่อนุมัติ)"]},
+      {m:[3,2,"แจ้งผลคำขอ","r"]},
+      {end:1},
+      {sec:"2 · เข้าสู่ระบบ (หลังได้รับอนุมัติ)"},
+      {m:[0,2,"Login ด้วย Provider ID"]},
+      {m:[2,1,"ยืนยันตัวตนผู้ให้บริการ"]},
+      {m:[1,2,"Token + สิทธิ Admin","r"]},
+      {sec:"3 · จัดการคำขอสิทธิเข้าใช้งาน"},
+      {m:[4,3,"ส่งคำขอสิทธิเข้าใช้งาน\n(พยาบาล แพทย์ เภสัช)"]},
+      {m:[0,2,"เปิดรายการคำขอ"]},
+      {m:[2,3,"ขอรายการคำขอที่รออนุมัติ"]},
+      {m:[3,2,"คำขอ + ข้อมูลผู้ขอ\n(ชื่อ Provider ID บทบาท สถานพยาบาล)","r"]},
+      {m:[0,2,"ตรวจสอบข้อมูลผู้ขอ"]},
+      {opt:"อนุมัติ"},
+      {m:[0,2,"อนุมัติ + กำหนดบทบาท"]},
+      {m:[2,3,"บันทึกสิทธิผู้ใช้งาน"]},
+      {m:[3,4,"แจ้งผลอนุมัติ เข้าใช้งานได้"]},
+      {end:1},
+      {opt:"ไม่อนุมัติ"},
+      {m:[0,2,"ปฏิเสธ + ระบุเหตุผล"]},
+      {m:[2,3,"บันทึกผลคำขอ"]},
+      {m:[3,4,"แจ้งผลไม่อนุมัติ + เหตุผล"]},
+      {end:1},
+      {sec:"4 · จัดการข้อมูลยา"},
+      {m:[0,2,"เพิ่ม / แก้ไข / ปิดใช้งาน รายการยา\n(ชื่อยา ความแรง หน่วย ราคา)"]},
+      {m:[2,3,"บันทึกข้อมูลยา"]},
+      {m:[3,2,"บันทึกสำเร็จ","r"]},
+      {note:"แพทย์ใช้รายการยานี้ตอนสั่งยา\nเภสัชใช้ตอนตั้งค่ายาและตรวจใบสั่งยา",over:[2,3]},
+      {sec:"5 · จัดการข้อมูลค่าใช้จ่ายตามสิทธิ"},
+      {m:[0,2,"เลือกประเภทรายการ: เวชภัณฑ์ที่ไม่ใช่ยา,\nบริการทางการแพทย์, บริการอื่นๆ"]},
+      {m:[0,2,"เพิ่ม / แก้ไขรายการ\nและกำหนดราคาตามสิทธิการรักษา"]},
+      {m:[2,3,"บันทึกค่าใช้จ่ายตามสิทธิ"]},
+      {m:[3,2,"บันทึกสำเร็จ","r"]},
+      {note:"ใช้คำนวณยอดชำระของผู้ป่วย\nตามสิทธิที่เลือกตอนทำนัด",over:[2,3]}
+    ]}
+};
+
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+function render(key){
+  const d = ROLES[key], P = d.parts, n = P.length;
+  const COL = 176, PX = 12, HH = 50, LH = 17;
+  const W = PX*2 + n*COL, cx = i => PX + COL*i + COL/2;
+  const bg = [], fg = [], stack = [];
+  let y = HH + 22;
+  for (const s of d.steps){
+    if (s.sec){
+      y += 8;
+      fg.push(`<g class="sec"><rect x="${PX}" y="${y}" width="${W-2*PX}" height="26" rx="4"/><text x="${PX+12}" y="${y+18}">${esc(s.sec)}</text></g>`);
+      y += 40; continue;
+    }
+    if (s.opt){ stack.push({y, label:s.opt}); y += 32; continue; }
+    if (s.end){
+      const f = stack.pop(), x0 = PX+6, w = W-2*PX-12, h = y - f.y + 4;
+      bg.push(`<g class="frag"><rect class="box" x="${x0}" y="${f.y}" width="${w}" height="${h}" rx="4"/><rect class="tag" x="${x0}" y="${f.y}" width="34" height="18"/><text class="tag" x="${x0+8}" y="${f.y+13}">opt</text><text class="lbl" x="${x0+44}" y="${f.y+14}">${esc(f.label)}</text></g>`);
+      y += 16; continue;
+    }
+    if (s.note){
+      const lines = s.note.split("\n"), a = cx(s.over[0]), b = cx(s.over[1]);
+      const x0 = Math.min(a,b) - 70, w = Math.abs(b-a) + 140, h = lines.length*LH + 14;
+      fg.push(`<g class="note"><rect x="${x0}" y="${y}" width="${w}" height="${h}" rx="3"/>${lines.map((l,i)=>`<text x="${x0+w/2}" y="${y+20+i*LH}">${esc(l)}</text>`).join("")}</g>`);
+      y += h + 16; continue;
+    }
+    const [f, t, txt, fl=""] = s.m, lines = txt.split("\n");
+    const cls = "msg" + (fl.includes("r")?" r":"") + (fl.includes("h")?" h":"") + (fl.includes("p")?" p":"");
+    const mk = (fl.includes("h")||fl.includes("p")) ? `url(#ah-h-${key})` : `url(#ah-${key})`;
+    const ay = y + lines.length*LH + 6;
+    if (f === t){
+      const x = cx(f);
+      fg.push(`<g class="${cls}"><path d="M${x} ${y+4} H${x+30} V${y+26} H${x+4}" marker-end="${mk}"/>${lines.map((l,i)=>`<text x="${x+38}" y="${y+14+i*LH}">${esc(l)}</text>`).join("")}</g>`);
+      y += Math.max(26, lines.length*LH) + 20;
+    } else {
+      const x1 = cx(f), x2 = cx(t), dir = Math.sign(x2-x1), mid = (x1+x2)/2;
+      fg.push(`<g class="${cls}"><line x1="${x1}" y1="${ay}" x2="${x2 - dir*2}" y2="${ay}" marker-end="${mk}"/>${lines.map((l,i)=>`<text x="${mid}" y="${y+12+i*LH}" text-anchor="middle">${esc(l)}</text>`).join("")}</g>`);
+      y = ay + 16;
+    }
+  }
+  y += 12;
+  const H = y + HH + 10;
+  const head = (yy) => P.map(([name,k],i)=>{
+    const ls = name.split("\n"), w = COL-20, x = cx(i)-w/2;
+    return `<g class="head ${k}"><rect x="${x}" y="${yy}" width="${w}" height="${HH-6}" rx="${k==="actor"?22:6}"/>${ls.map((l,j)=>`<text x="${cx(i)}" y="${yy+(HH-6)/2+5+(j-(ls.length-1)/2)*15}">${esc(l)}</text>`).join("")}</g>`;
+  }).join("");
+  const lifelines = P.map((_,i)=>`<line class="lifeline" x1="${cx(i)}" y1="${HH-6}" x2="${cx(i)}" y2="${y}"/>`).join("");
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Sequence diagram ${esc(d.tab)}">
+    <defs>
+      <marker id="ah-${key}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ah" d="M0 0 L10 5 L0 10z"/></marker>
+      <marker id="ah-h-${key}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah-h" d="M0 0 L10 5 L0 10z"/></marker>
+    </defs>
+    ${lifelines}${bg.join("")}${head(0)}${fg.join("")}${head(y)}
+  </svg>`;
+}
+
+const tabs = document.getElementById("tabs"), diag = document.getElementById("diag"), cap = document.getElementById("cap");
+function show(key){
+  [...tabs.children].forEach(b => b.setAttribute("aria-selected", b.dataset.k === key));
+  diag.innerHTML = render(key); cap.textContent = ROLES[key].cap;
+  try{ localStorage.setItem("da-tab", key); }catch(e){}
+}
+Object.entries(ROLES).forEach(([k,r])=>{
+  const b = document.createElement("button");
+  b.role = "tab"; b.dataset.k = k; b.id = "tab-"+k; b.textContent = r.tab;
+  b.addEventListener("click", ()=>show(k)); tabs.appendChild(b);
+});
+let start = location.hash.slice(1);
+if (!ROLES[start]) { try{ start = localStorage.getItem("da-tab"); }catch(e){} }
+show(ROLES[start] ? start : "patient");
+</script>
+
+</body></html>
