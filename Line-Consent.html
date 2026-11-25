@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LINE · ยินยอมข้อมูลส่วนบุคคล</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Prompt',system-ui,sans-serif;color:#14215A;background:#F4F6FB}
+a{color:#2F5BEA}a:hover{color:#1E3FB0}
+*{box-sizing:border-box}
+.card{background:#fff;border-radius:20px;box-shadow:0 1px 2px rgba(20,33,90,.05),0 8px 24px rgba(20,33,90,.06)}
+.row{display:flex;gap:12px;align-items:center}
+.muted{color:#5A6585}
+.lbl{font-size:14px;color:#5A6585}
+.val{font-size:17px;font-weight:500;color:#14215A}
+.req{color:#C62828}
+.inp{height:50px;border:1.5px solid #D5DDEA;border-radius:14px;padding:0 14px;font:inherit;font-size:17px;color:#14215A;background:#fff;width:100%}
+.inp:focus{outline:3px solid rgba(47,91,234,.25);border-color:#2F5BEA}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:56px;padding:0 20px;border-radius:16px;font:inherit;font-size:18px;font-weight:500;text-decoration:none;border:0;cursor:pointer}
+.btn-primary{background:#2F5BEA;color:#fff;box-shadow:0 6px 16px rgba(47,91,234,.28)}.btn-primary:hover{background:#2449C4;color:#fff}
+.btn-green{background:#2E8540;color:#fff;box-shadow:0 6px 16px rgba(46,133,64,.25)}.btn-green:hover{background:#246A33;color:#fff}
+.btn-ghost{background:#EEF3FF;color:#2F5BEA}
+.btn-danger{background:#fff;color:#C62828;border:1.5px solid #EBB4B4}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;padding:4px 12px;border-radius:999px;font-weight:500}
+.tile{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none}
+main>*{flex-shrink:0}
+</style>
+
+<style>html,body{margin:0;background:#DDE3EE}#app{width:390px;height:844px;margin:0 auto;overflow:hidden;position:relative;background:#F4F6FB}
+@media (min-width:500px){body{padding:24px 0}#app{border-radius:28px;box-shadow:0 20px 60px rgba(20,33,90,.25)}}
+@media (max-width:499px){#app{width:100vw;height:100dvh}#app>div{width:100%!important;height:100%!important}}
+.proto-home{position:fixed;left:12px;bottom:12px;font:500 13px Prompt,system-ui;background:#14215A;color:#fff;padding:8px 12px;border-radius:999px;text-decoration:none;opacity:.85;z-index:99}
+@media (max-width:499px){.proto-home{display:none}}</style>
+</head><body><div id="app"></div><a class="proto-home" href="screens.html">☰ ทุกหน้าจอ</a>
+<script id="tpl" type="text/plain">
+
+<div style="width:390px;height:844px;background:#F4F6FB;display:flex;flex-direction:column;overflow:hidden">
+<header style="flex:none;display:flex;flex-direction:column"><div style="background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E6EAF2"><span class="row" style="gap:8px"><img src="assets/drassist-symbol.png" alt="" width="32" height="32" style="display:block"><b style="font-size:19px;color:#2F5BEA;font-weight:600">Dr.Assist</b></span><span class="row" style="gap:10px"><span style="display:flex;flex-direction:column;align-items:flex-end;line-height:1.25"><span style="font-size:14px;font-weight:500">สมชาย ใจดี</span><span class="chip" style="background:#EEF3FF;color:#2F5BEA;font-size:12px;padding:1px 8px">ผู้ป่วย</span></span><span style="width:40px;height:40px;border-radius:12px;background:#EEF3FF;border:1.5px solid #D5E0F7;color:#2F5BEA;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:17px">ส</span></span></div><div style="padding:10px 16px 0;display:flex;flex-direction:column;gap:10px"><a href="Line-Appts.html" class="row" style="gap:6px;text-decoration:none;color:#2F5BEA;font-size:17px;font-weight:500;align-self:flex-start;min-height:36px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>ย้อนกลับ</a></div></header>
+<main style="flex:1;min-height:0;overflow:hidden;padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+<section class="card" style="flex:1 1 auto;min-height:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px"><h2 style="margin:0;font-size:16px;font-weight:600">หนังสือให้ความยินยอมในการเก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคล</h2><div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:10px 12px;background:#F8FAFD;border:1px solid #E6EAF2;border-radius:12px"><p style="margin:0;font-size:15px;color:#3B4668;line-height:1.6">ข้าพเจ้ารับทราบว่าระบบ Dr.Assist จะเก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคลของข้าพเจ้า ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 ดังนี้</p><div style="display:flex;flex-direction:column;gap:2px"><b style="font-size:15px;font-weight:600">1. วัตถุประสงค์</b><p style="margin:0;font-size:15px;color:#3B4668;line-height:1.6">เพื่อตรวจสอบสิทธิการรักษา ลงทะเบียนและนัดหมายตรวจสุขภาพ ส่งผลตรวจให้แพทย์อ่านผล และติดตามดูแลต่อเมื่อผลตรวจผิดปกติ</p></div><div style="display:flex;flex-direction:column;gap:2px"><b style="font-size:15px;font-weight:600">2. ข้อมูลที่เก็บ</b><p style="margin:0;font-size:15px;color:#3B4668;line-height:1.6">เลขบัตรประชาชน ชื่อ-นามสกุล วันเดือนปีเกิด เบอร์โทรศัพท์ และข้อมูลสุขภาพ เช่น ผลการตรวจและประวัติการรักษา</p></div><div style="display:flex;flex-direction:column;gap:2px"><b style="font-size:15px;font-weight:600">3. การเปิดเผยข้อมูล</b><p style="margin:0;font-size:15px;color:#3B4668;line-height:1.6">ข้อมูลจะเปิดเผยเฉพาะหน่วยบริการที่ท่านเลือก แพทย์ผู้อ่านผล และหน่วยงานที่เกี่ยวข้องตามกฎหมายเท่านั้น</p></div><div style="display:flex;flex-direction:column;gap:2px"><b style="font-size:15px;font-weight:600">4. ระยะเวลาการเก็บรักษา</b><p style="margin:0;font-size:15px;color:#3B4668;line-height:1.6">เก็บรักษาตลอดระยะเวลาการให้บริการ และตามที่กฎหมายกำหนด</p></div><div style="display:flex;flex-direction:column;gap:2px"><b style="font-size:15px;font-weight:600">5. สิทธิของเจ้าของข้อมูล</b><p style="margin:0;font-size:15px;color:#3B4668;line-height:1.6">ท่านมีสิทธิขอเข้าถึง แก้ไข ลบ หรือถอนความยินยอมได้ตลอดเวลา ผ่านเมนูข้อมูลส่วนตัว</p></div><a href="#" style="font-size:15px">อ่านนโยบายความเป็นส่วนตัวฉบับเต็ม</a></div><span class="muted" style="font-size:13px;text-align:center">เลื่อนในกรอบเพื่ออ่านเพิ่มเติม</span></section>
+<label class="card" style="flex:none;display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:2px solid #2F5BEA;background:#F5F8FF;cursor:pointer"><input type="checkbox" checked="{{a}}" onChange="{{toggleA}}" style="width:26px;height:26px;accent-color:#2F5BEA;flex:none"><span style="font-size:16px;font-weight:600;line-height:1.45">ข้าพเจ้าได้อ่านและยินยอมให้เก็บ ใช้ และเปิดเผยข้อมูลส่วนบุคคลตามที่ระบุ</span></label>
+
+</main>
+<footer style="background:#fff;border-radius:24px 24px 0 0;padding:14px 16px 18px;display:flex;gap:10px;box-shadow:0 -4px 16px rgba(20,33,90,.06)"><a class="btn btn-primary" href="{{nextHref}}" style="flex:1;{{btnSt}}">ยินยอม</a></footer>
+</div>
+</script>
+<script src="runtime.js"></script>
+<script>mountDC(document.getElementById('app'),document.getElementById('tpl').textContent,"\nclass Component extends DCLogic {\nrenderVals() {\n  const a = !!(this.state && this.state.a);\n  return { a, toggleA: () => this.setState({a: !a}), btnSt: a ? '' : 'opacity:.45;pointer-events:none', nextHref: a ? 'Line-Family.html' : '#' };\n}\n}\n",{});</script>
+</body></html>

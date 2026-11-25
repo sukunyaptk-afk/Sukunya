@@ -1,8 +1,13 @@
-# Doctor Assist Prototype (Vercel)
+# Dr.Assist – ลงทะเบียนตรวจสุขภาพผ่าน LINE หมอพร้อม (Prototype)
 
-1. vercel.com → Add New → Project → ลากโฟลเดอร์นี้ (หรือ push ขึ้น GitHub แล้ว Import)
-2. Framework Preset: Other · ไม่ต้องตั้ง Build Command
+Static site (ไม่ต้อง build)
 
-หรือ CLI: `npx vercel --prod`
+## Deploy ขึ้น Vercel
+วิธีที่ 1: ลากโฟลเดอร์นี้ไปวางที่ https://vercel.com/new (Deploy โฟลเดอร์ / อัปโหลด)
+วิธีที่ 2: ใช้ CLI
+    npm i -g vercel
+    cd <โฟลเดอร์นี้>
+    vercel --prod
+ตั้งค่า Framework Preset = Other, Build Command = (ว่าง), Output Directory = .
 
-หน้า: / , /patient, /payment, /nurse, /doctor, /pharmacist, /admin, /osm
+หน้าเริ่มต้น: index.html (รวมทุกหน้าจอ)
